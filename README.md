@@ -1,24 +1,21 @@
 
-
-
-
 git branch 
-<!-- check on wich branch you are -->
+check on wich branch you are
 
 git switch *branch name*
-<!-- switch to the branch named -->
+switch to the branch named
 
 git status 
-<!-- Check status -->
+Check status
 
 git add *file name*
-<!-- Add a file to the staging area -->
+Add a file to the staging area
 
 git commit -m "*commit message*"
-<!-- Commit changes -->
+Commit changes
 
 git push origin *branch name*
-<!-- Push a branch to your remote repository -->
+Push a branch to your remote repository
 
 git pull origin *branch name*
-<!-- Pull changes from remote repository -->
+Pull changes from remote repository
