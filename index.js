@@ -51,3 +51,13 @@ function mateo(){
         nacionalidad: "argentina"
     };
     return nombre
+}
+
+function getSofi(){
+    return {
+        nombre: "Sofia",
+        edad: 19,
+        nacionalidad: "Argentina"
+    };
+}
+
