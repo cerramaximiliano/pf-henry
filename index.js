@@ -1,4 +1,8 @@
 
+
+
+
+
 function laCajaDePandora(numero) {
     if (typeof numero !== 'number') {
       return 'Por favor, ingresa un número válido.';
@@ -25,3 +29,11 @@ function getMaxi (  ) {
         nacionalidad: 'argentino'
     }
 };
+function juanUbaldi() {
+  return {
+    name: "juan ubaldi",
+    nacionalidad: "Argentino",
+    edad: "31",
+  };
+}
+
