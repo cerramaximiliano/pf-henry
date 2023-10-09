@@ -1,14 +1,43 @@
-function laCajaDePandora(numero){
-    // proximamente escribiremos codigo aqui
-    return numero % 2 === 0 ? numero.toString(2) : numero.toString(6)
+function laCajaDePandora(numero) {
+    if (typeof numero !== 'number') {
+      return 'Por favor, ingresa un número válido.';
+     }
+  
+    if (numero % 2 === 0) {
+      return numero.toString(2);
+    } else {
+      return numero.toString(16);
     }
+  }
 
-function getWilly(){
-    return {
-        name: 'Guillermo',
-        age: 32,
-        nationality: 'Argentino'
-    }
+function getLucas() {
+  return{
+    nombre: 'Lucas',
+    edad: '24',
+    nacionalidad: 'argentino'
+  }
+};
+
+function getMaxi (  ) {
+  return {
+    nombre: 'Maxi',
+    edad: 29,
+    nacionalidad: 'argentino'
+   }
+};
+
+function juanUbaldi() {
+  return {
+    name: "juan ubaldi",
+    nacionalidad: "Argentino",
+    edad: "31",
+  };
 }
 
-console.log(getWilly());
+function getWilly(){
+  return {
+    name: 'Guillermo',
+    age: 32,
+    nationality: 'Argentino'
+  }
+}
