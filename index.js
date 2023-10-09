@@ -11,3 +11,13 @@ function laCajaDePandora(numero) {
     return 'Debe ingresar un número entero.';
   }
 }
+
+function infoPersonal() {
+  const miInformacion = {
+    nombre: 'Juan Leonel Pogonza',
+    edad: 20,
+    nacionalidad: 'Argentino',
+  };
+
+  return miInformacion;
+}
