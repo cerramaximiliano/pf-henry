@@ -1,7 +1,7 @@
 function laCajaDePandora(numero) {
   if (Number.isInteger(numero)) {
     if (numero % 2 === 0) {
-      // Número par, convertir a binario
+      // Número par, convertir a binari
       return numero.toString(2);
     } else {
       // Número impar, convertir a hexadecimal
