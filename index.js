@@ -1,12 +1,7 @@
-
-
-
-
-
 function laCajaDePandora(numero) {
     if (typeof numero !== 'number') {
       return 'Por favor, ingresa un número válido.';
-    }
+     }
   
     if (numero % 2 === 0) {
       return numero.toString(2);
@@ -16,19 +11,21 @@ function laCajaDePandora(numero) {
   }
 
 function getLucas() {
-return{
-nombre: 'Lucas',
-edad: '24',
-nacionalidad: 'argentino'
-}
+  return{
+    nombre: 'Lucas',
+    edad: '24',
+    nacionalidad: 'argentino'
+  }
 };
+
 function getMaxi (  ) {
-    return {
-        nombre: 'Maxi',
-        edad: 29,
-        nacionalidad: 'argentino'
-    }
+  return {
+    nombre: 'Maxi',
+    edad: 29,
+    nacionalidad: 'argentino'
+   }
 };
+
 function juanUbaldi() {
   return {
     name: "juan ubaldi",
@@ -37,3 +34,10 @@ function juanUbaldi() {
   };
 }
 
+function getWilly(){
+  return {
+    name: 'Guillermo',
+    age: 32,
+    nationality: 'Argentino'
+  }
+}
