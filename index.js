@@ -1,4 +1,5 @@
-function laCajaDePandora(numero) {
+
+  function laCajaDePandora(numero) {
     if (typeof numero !== 'number') {
       return 'Por favor, ingresa un número válido.';
      }
@@ -62,5 +63,15 @@ function getSofi(){
 
 function getJulian(){
     return { nombre: julian, edad:33, nacionalidad:"argentino"}
+}
+
+function infoPersonal() {
+  const miInformacion = {
+    nombre: 'Juan Leonel Pogonza',
+    edad: 20,
+    nacionalidad: 'Argentino',
+  };
+
+  return miInformacion;
 }
 
