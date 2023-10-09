@@ -1,3 +1,4 @@
+
 function laCajaDePandora(numero) {
     if (typeof numero !== 'number') {
       return 'Por favor, ingresa un número válido.';
@@ -40,4 +41,13 @@ function getWilly(){
     age: 32,
     nationality: 'Argentino'
   }
+
 }
+
+function mateo(){
+    let nombre = {
+        nombre: "mateo",
+        edad: 25,
+        nacionalidad: "argentina"
+    };
+    return nombre
