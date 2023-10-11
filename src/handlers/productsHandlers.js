@@ -4,7 +4,7 @@ const {addProduct} = require('../controllers/productsControllers');
 const addProductHandler = async (req, res) => {
     const {title, price, category, stock, sold, diet, flavor, weight} = req.body;
     try {
-        if(!title || !price || !category || !stock || !sold || !diet || !flavor || !weight) {
+        if(!title || !price || !category || !stock || !diet || !flavor || !weight) {
             res.status(400).json({
                 ok: false,
                 message: `Missing request data`
