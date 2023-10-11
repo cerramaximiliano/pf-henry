@@ -2,7 +2,7 @@ const Product = require('../models/products');
 
 async function getByName(name) {
   try {
-    const resultados = await Product.find({ title: name });
+    const resultados = await Product.find({ title:  { $regex: name, $options: 'i' }  });
     if (resultados.length > 0) {
       return resultados;
     } else {
