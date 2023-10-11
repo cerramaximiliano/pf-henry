@@ -21,6 +21,7 @@ const productSchema = new mongoose.Schema(
           },
           sold: {
             type: Number,
+            require: true,
             default: 0,
           },
           diet: {
@@ -29,8 +30,13 @@ const productSchema = new mongoose.Schema(
           flavor: {
             type: String
           },
-          weight: {
-            type: String
+          weigth : {
+            value: {
+              type: Number,
+            },
+            type: {
+              type: String,
+            },
           },
           isActive: {
             type: Boolean,
