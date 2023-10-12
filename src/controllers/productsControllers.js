@@ -66,9 +66,10 @@ const getAllProducts = async (
     if (priceMin && !isNaN(priceMin)) filter.price = { ...filter.price, $gte: parseFloat(priceMin) };
     if (priceMax && !isNaN(priceMax)) filter.price = { ...filter.price, $lte: parseFloat(priceMax) };
     if (weightMin && !isNaN(weightMin)) filter = { ...filter, 'weight.value' : {...filter['weight.value'], $gte: parseFloat(weightMin)} };
-    if (weightMax && !isNaN(weightMax)) filter = { ...filter, 'weight.value' : {...filter['weight.value'], $lte: parseFloat(weightMin)} };
+    if (weightMax && !isNaN(weightMax)) filter = { ...filter, 'weight.value' : {...filter['weight.value'], $lte: parseFloat(weightMax)} };
     if (weightType) filter = {...filter, 'weight.type' : weightType }
     filter.isActive = true
+    console.log(filter);
 
     //const totalCount2 = await Products.countDocuments(filter)
 
