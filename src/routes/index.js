@@ -10,3 +10,7 @@ router.use('/products', productsRoutes);
 router.use('/image', imagesRoutes);
 
 module.exports = router;
+
+
+
+
