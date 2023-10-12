@@ -2,6 +2,7 @@ const {
   addProduct,
   desactivateProduct,
   activateProduct,
+  getAllProducts
 } = require('../controllers/productsControllers');
 
 const addProductHandler = async (req, res) => {
@@ -57,8 +58,43 @@ const activateProductHandler = async (req, res) => {
   }
 };
 
+const getProducts = async (req,res) => {
+  try {
+    const{
+      category,
+      priceMin,
+      priceMax,
+      diet,
+      flavor,
+      weightMin,
+      weightMax,
+      weightType,
+      page = 1,
+      limit = 10
+    } = req.query
+
+    response = await getAllProducts(category,
+      priceMin,
+      priceMax,
+      diet,
+      flavor,
+      weightMin,
+      weightMax,
+      weightType,
+      page,
+      limit)
+
+      res.json(response)
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({error: 'Error while getting the'})
+  }
+}
+
+
 module.exports = {
   addProductHandler,
   desactivateProductHandler,
   activateProductHandler,
+  getProducts
 };

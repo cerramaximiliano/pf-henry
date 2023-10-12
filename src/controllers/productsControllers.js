@@ -46,4 +46,47 @@ const activateProduct = async (productId) => {
   }
 };
 
-module.exports = { addProduct, desactivateProduct, activateProduct };
+const getAllProducts = async (
+  category,
+  priceMin,
+  priceMax,
+  diet,
+  flavor,
+  weightMin,
+  weightMax,
+  weightType,
+  page,
+  limit) => {
+
+    let filter = {}
+
+    if(category) filter.category = { $regex: new RegExp(category, 'i')}
+    if(diet) filter.diet = { $regex: new RegExp(diet, 'i')}
+    if(flavor) filter.flavor = { $regex: new RegExp(flavor, 'i')}
+    if (priceMin && !isNaN(priceMin)) filter.price = { ...filter.price, $gte: parseFloat(priceMin) };
+    if (priceMax && !isNaN(priceMax)) filter.price = { ...filter.price, $lte: parseFloat(priceMax) };
+    if (weightMin && !isNaN(weightMin)) filter = { ...filter, 'weight.value' : {...filter['weight.value'], $gte: parseFloat(weightMin)} };
+    if (weightMax && !isNaN(weightMax)) filter = { ...filter, 'weight.value' : {...filter['weight.value'], $lte: parseFloat(weightMin)} };
+    if (weightType) filter = {...filter, 'weight.type' : weightType }
+    filter.isActive = true
+
+    //const totalCount2 = await Products.countDocuments(filter)
+
+    const skip = (page-1) * limit
+
+    const products = await Products.find(filter)
+    .skip(skip)
+    .limit(parseInt(limit))
+
+    const totalCount = products.length
+
+    const totalPages = Math.ceil(totalCount / limit)
+
+    result = { products, totalPages, currentPage: parseInt(page), totalResults: totalCount }
+    return result
+
+
+
+  }
+
+module.exports = { addProduct, desactivateProduct, activateProduct, getAllProducts };
