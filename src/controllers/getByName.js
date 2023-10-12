@@ -2,15 +2,17 @@ const Product = require('../models/products');
 
 async function getByName(name) {
   try {
-    const resultados = await Product.find({ title:  { $regex: name, $options: 'i' }  });
+    const words = name.split(' ');
+    const regex = words.map(word => `(?=.*${word})`).join('');
+    const regexPattern = new RegExp(regex, 'i');
+    const resultados = await Product.find({ title: regexPattern });
     if (resultados.length > 0) {
       return resultados;
     } else {
       return 'No se encontraron coincidencias';
     }
   } catch (err) {
-    console.error('Error al buscar en la base de datos:', err);
-    return 'Error interno del servidor'
+    throw new Error(err)
   }
 }
 
