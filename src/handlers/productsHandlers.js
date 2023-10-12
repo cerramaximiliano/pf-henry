@@ -70,7 +70,8 @@ const getProducts = async (req,res) => {
       weightMax,
       weightType,
       page = 1,
-      limit = 10
+      limit = 10,
+      orderBy = 'title'
     } = req.query
 
     response = await getAllProducts(category,
@@ -82,7 +83,8 @@ const getProducts = async (req,res) => {
       weightMax,
       weightType,
       page,
-      limit)
+      limit,
+      orderBy)
 
       res.json(response)
   } catch (error) {

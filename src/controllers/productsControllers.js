@@ -56,7 +56,11 @@ const getAllProducts = async (
   weightMax,
   weightType,
   page,
-  limit) => {
+  limit,
+  orderBy) => {
+
+    // filtering & pagination
+
 
     let filter = {}
 
@@ -70,14 +74,15 @@ const getAllProducts = async (
     if (weightType) filter = {...filter, 'weight.type' : weightType }
     filter.isActive = true
     console.log(filter);
-
+    console.log(typeof orderBy);
     //const totalCount2 = await Products.countDocuments(filter)
 
     const skip = (page-1) * limit
-
+    
     const products = await Products.find(filter)
     .skip(skip)
     .limit(parseInt(limit))
+    .sort(orderBy)
 
     const totalCount = products.length
 
