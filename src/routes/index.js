@@ -7,7 +7,7 @@ const imagesRoutes = require('./images');
 
 router.use('/users', usersRoutes);
 router.use('/products', productsRoutes);
-router.use('/image', imagesRoutes);
+router.use('/upload', imagesRoutes);
 
 module.exports = router;
 

@@ -37,6 +37,9 @@ const productSchema = new mongoose.Schema({
       type: String,
     },
   },
+  image: {
+    type: String
+  },
   isActive: {
     type: Boolean,
     required: true,

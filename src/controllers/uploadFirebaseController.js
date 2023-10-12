@@ -4,12 +4,7 @@ const { ref, getDownloadURL, uploadBytesResumable } = require('firebase/storage'
 const { getStorage } = require('firebase/storage');
 const {firebaseConfig} = require('../config/firebase');
 
-
-
-// feature/image upload route-controller
-// route and controller to upload images
-
-exports.uploadImage = async (req, res) => {
+exports.uploadImageById = async (req, res) => {
     if( !req.body._id ) return res.status(400).json({ok: false, message: `Missing request data _id`})
 
   try {
@@ -23,6 +18,8 @@ exports.uploadImage = async (req, res) => {
     };
     const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
     const downloadURL = await getDownloadURL(snapshot.ref);
+    const updateProduct = await Products.findOneAndUpdate({_id: req.body._id}, {image: downloadURL}, {returnDocument: "after"})
+    console.log(updateProduct)
     return res.json({
       ok: true,
       message: 'File uploaded to Firebase Storage',
@@ -33,4 +30,22 @@ exports.uploadImage = async (req, res) => {
   } catch (err) {
     res.status(400).json({ ok: false, error: err.message });
   }
+};
+
+
+exports.uploadImage = async (req, res) => {
+    try{
+        initializeApp(firebaseConfig);
+        const storage = getStorage();
+        const storageRef = ref(storage, `files/${req.file.originalname}`);
+        const metadata = {
+          contentType: req.file.mimetype
+        };
+        const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
+        const downloadURL = await getDownloadURL(snapshot.ref);
+
+        return downloadURL
+    }catch(err){
+        throw new Error(err)
+    }
 };
