@@ -9,8 +9,7 @@ async function getById(id) {
       return 'No se encontraron coincidencias';
     }
   } catch (err) {
-    console.error('Error al buscar en la base de datos:', err);
-    return 'Error interno del servidor'
+    throw new Error(err)
   }
 }
 
