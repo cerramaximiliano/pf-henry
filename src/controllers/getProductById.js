@@ -10,7 +10,7 @@ async function getById(id) {
     }
   } catch (err) {
     console.error('Error al buscar en la base de datos:', err);
-    return 'Error interno del servidor'
+    throw new Error(err)
   }
 }
 
