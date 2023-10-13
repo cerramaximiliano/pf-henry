@@ -16,7 +16,7 @@ const addProductHandler = async (req, res) => {
       if (!title) missingFields.push("title");
       if (!price) missingFields.push("price");
       if (!category) missingFields.push("category");
-      if (!stock) missingFields.push("stock");
+      if (stock === undefined) missingFields.push("stock");
       if (!diet) missingFields.push("diet");
       if (!flavor) missingFields.push("flavor");
   
@@ -24,6 +24,7 @@ const addProductHandler = async (req, res) => {
         res.status(400).json({
           ok: false,
           message: `Missing request data for fields: ${missingFields.join(", ")}`,
+          failedFields: missingFields
         });
 
       } else {
