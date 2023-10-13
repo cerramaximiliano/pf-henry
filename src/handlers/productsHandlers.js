@@ -10,23 +10,26 @@ const addProductHandler = async (req, res) => {
   try {
     const { title, price, category, stock, sold, diet, flavor, weight} =
       (req.body);
-    if (
-      !title ||
-      !price ||
-      !category ||
-      !stock ||
-      !diet ||
-      !flavor
-    ) {
-      res.status(400).json({
-        ok: false,
-        message: `Missing request data`,
-      });
-    } else {
+
+      const missingFields = [];
+
+      if (!title) missingFields.push("title");
+      if (!price) missingFields.push("price");
+      if (!category) missingFields.push("category");
+      if (!stock) missingFields.push("stock");
+      if (!diet) missingFields.push("diet");
+      if (!flavor) missingFields.push("flavor");
+  
+      if (missingFields.length > 0) {
+        res.status(400).json({
+          ok: false,
+          message: `Missing request data for fields: ${missingFields.join(", ")}`,
+        });
+
+      } else {
       console.log('Image Upload')
       if( req.image ){
         const uploadImage = await imagesController.uploadImage(req);
-        console.log(uploadImage)
         const newProduct = await addProduct({...req.body, image: uploadImage})
         if (newProduct) return res.status(201).json({ ok: true, newProduct });
         else return res.status(500).json({ ok: false, error: `Server error` });
