@@ -75,7 +75,7 @@ const getAllProducts = async (
     filter.isActive = true
     console.log(filter);
     console.log(typeof orderBy);
-    //const totalCount2 = await Products.countDocuments(filter)
+    const totalCount = await Products.countDocuments(filter);
 
     const skip = (page-1) * limit
     
@@ -83,8 +83,6 @@ const getAllProducts = async (
     .skip(skip)
     .limit(parseInt(limit))
     .sort(orderBy)
-
-    const totalCount = products.length
 
     const totalPages = Math.ceil(totalCount / limit)
 
