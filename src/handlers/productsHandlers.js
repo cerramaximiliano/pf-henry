@@ -8,7 +8,7 @@ const imagesController = require('../controllers/uploadFirebaseController');
 
 const addProductHandler = async (req, res) => {
   try {
-    const { title, price, category, stock, sold, diet, flavor, weight} =
+    const { title, price, category, stock, sold, diet, flavor, value, type} =
       (req.body);
 
       const missingFields = [];
@@ -31,11 +31,11 @@ const addProductHandler = async (req, res) => {
       console.log('Image Upload')
       if( req.image ){
         const uploadImage = await imagesController.uploadImage(req);
-        const newProduct = await addProduct({...req.body, image: uploadImage})
+        const newProduct = await addProduct({...req.body, weight: {type, value}, image: uploadImage})
         if (newProduct) return res.status(201).json({ ok: true, newProduct });
         else return res.status(500).json({ ok: false, error: `Server error` });
       }else {
-        const newProduct = await addProduct(req.body);
+        const newProduct = await addProduct({...req.body, weight: {type, value}});
         if (newProduct) return res.status(201).json({ ok: true, newProduct });
         else return res.status(500).json({ ok: false, error: `Server error` });
       }
