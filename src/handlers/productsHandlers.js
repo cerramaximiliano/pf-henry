@@ -31,11 +31,11 @@ const addProductHandler = async (req, res) => {
       console.log('Image Upload')
       if( req.image ){
         const uploadImage = await imagesController.uploadImage(req);
-        const newProduct = await addProduct({...req.body, weight: {type, value}, image: uploadImage})
+        const newProduct = await addProduct({...req.body, weigth: {type:type, value:value}, image: uploadImage})
         if (newProduct) return res.status(201).json({ ok: true, newProduct });
         else return res.status(500).json({ ok: false, error: `Server error` });
       }else {
-        const newProduct = await addProduct({...req.body, weight: {type, value}});
+        const newProduct = await addProduct({...req.body, weigth: {type:type, value:value}});
         if (newProduct) return res.status(201).json({ ok: true, newProduct });
         else return res.status(500).json({ ok: false, error: `Server error` });
       }
