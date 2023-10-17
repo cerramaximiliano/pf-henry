@@ -72,6 +72,7 @@ const activateProductHandler = async (req, res) => {
 const getProducts = async (req,res) => {
   try {
     const{
+      name,
       category,
       priceMin,
       priceMax,
@@ -85,7 +86,8 @@ const getProducts = async (req,res) => {
       orderBy = 'title'
     } = req.query
 
-    response = await getAllProducts(category,
+    response = await getAllProducts(name,
+      category,
       priceMin,
       priceMax,
       diet,
