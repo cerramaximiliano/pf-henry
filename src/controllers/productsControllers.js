@@ -47,6 +47,7 @@ const activateProduct = async (productId) => {
 };
 
 const getAllProducts = async (
+  name,
   category,
   priceMin,
   priceMax,
@@ -59,38 +60,44 @@ const getAllProducts = async (
   limit,
   orderBy) => {
 
-    // filtering & pagination
+  // filtering & pagination
 
 
-    let filter = {}
+  let filter = {}
+  // if (name) {
+  //   const words = name.split(' ');
+  //   const regex = words.map(word => `(?=.*${word})`).join('');
+  //   const regexPattern = new RegExp(regex, 'i');
+  //   filter.title = { $regex: new RegExp(regex, 'i') }
+  // }
+  if (name) filter.title = { $regex: new RegExp(name, 'i') }
+  if (category) filter.category = { $regex: new RegExp(category, 'i') }
+  if (diet) filter.diet = { $regex: new RegExp(diet, 'i') }
+  if (flavor) filter.flavor = { $regex: new RegExp(flavor, 'i') }
+  if (priceMin && !isNaN(priceMin)) filter.price = { ...filter.price, $gte: parseFloat(priceMin) };
+  if (priceMax && !isNaN(priceMax)) filter.price = { ...filter.price, $lte: parseFloat(priceMax) };
+  if (weightMin && !isNaN(weightMin)) filter = { ...filter, 'weight.value': { ...filter['weight.value'], $gte: parseFloat(weightMin) } };
+  if (weightMax && !isNaN(weightMax)) filter = { ...filter, 'weight.value': { ...filter['weight.value'], $lte: parseFloat(weightMax) } };
+  if (weightType) filter = { ...filter, 'weight.type': weightType }
+  filter.isActive = true
+  console.log(filter);
+  console.log(typeof orderBy);
+  const totalCount = await Products.countDocuments(filter);
 
-    if(category) filter.category = { $regex: new RegExp(category, 'i')}
-    if(diet) filter.diet = { $regex: new RegExp(diet, 'i')}
-    if(flavor) filter.flavor = { $regex: new RegExp(flavor, 'i')}
-    if (priceMin && !isNaN(priceMin)) filter.price = { ...filter.price, $gte: parseFloat(priceMin) };
-    if (priceMax && !isNaN(priceMax)) filter.price = { ...filter.price, $lte: parseFloat(priceMax) };
-    if (weightMin && !isNaN(weightMin)) filter = { ...filter, 'weight.value' : {...filter['weight.value'], $gte: parseFloat(weightMin)} };
-    if (weightMax && !isNaN(weightMax)) filter = { ...filter, 'weight.value' : {...filter['weight.value'], $lte: parseFloat(weightMax)} };
-    if (weightType) filter = {...filter, 'weight.type' : weightType }
-    filter.isActive = true
-    console.log(filter);
-    console.log(typeof orderBy);
-    const totalCount = await Products.countDocuments(filter);
+  const skip = (page - 1) * limit
 
-    const skip = (page-1) * limit
-    
-    const products = await Products.find(filter)
+  const products = await Products.find(filter)
     .skip(skip)
     .limit(parseInt(limit))
     .sort(orderBy)
 
-    const totalPages = Math.ceil(totalCount / limit)
+  const totalPages = Math.ceil(totalCount / limit)
 
-    result = { products, totalPages, currentPage: parseInt(page), totalResults: totalCount }
-    return result
+  result = { products, totalPages, currentPage: parseInt(page), totalResults: totalCount }
+  return result
 
 
 
-  }
+}
 
 module.exports = { addProduct, desactivateProduct, activateProduct, getAllProducts };
