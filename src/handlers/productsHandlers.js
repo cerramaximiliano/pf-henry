@@ -82,7 +82,7 @@ const getProducts = async (req,res) => {
       weightMax,
       weightType,
       page = 1,
-      limit = 10,
+      limit = 6,
       orderBy = 'title'
     } = req.query
 
