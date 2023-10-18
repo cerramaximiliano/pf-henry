@@ -2,7 +2,8 @@ const {
   addProduct,
   desactivateProduct,
   activateProduct,
-  getAllProducts
+  getAllProducts,
+  getPropiertyValues
 } = require('../controllers/productsControllers');
 const imagesController = require('../controllers/uploadFirebaseController');
 
@@ -106,10 +107,24 @@ const getProducts = async (req,res) => {
   }
 }
 
+const getPropiertyValuesHandler = async (req, res) => {
+  const {value} = req.params;
+  try {
+    if (!value || (value !== 'flavor' && value !== 'category' && value !== 'diet')){
+      res.status(400).json({ok: false, message: `Invalid parameter: ${value}`})
+    }else{
+      const findValues = await getPropiertyValues(value);
+      res.status(200).json(findValues);
+    }
+  }catch(err){
+    res.status(500).json({err: err.message, ok: false})
+  }
+};
 
 module.exports = {
   addProductHandler,
   desactivateProductHandler,
   activateProductHandler,
-  getProducts
+  getProducts,
+  getPropiertyValuesHandler
 };

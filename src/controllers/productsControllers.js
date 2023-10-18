@@ -98,6 +98,15 @@ const getAllProducts = async (
 
 
 
-}
+};
 
-module.exports = { addProduct, desactivateProduct, activateProduct, getAllProducts };
+const getPropiertyValues = async (value) => {
+  try {
+    const foundValues = await Products.distinct(value)
+    return {foundValues};
+  }catch(err){
+    throw new Error(err)
+  }
+};
+
+module.exports = { addProduct, desactivateProduct, activateProduct, getAllProducts, getPropiertyValues };
