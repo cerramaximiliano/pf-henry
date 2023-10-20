@@ -1,10 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
+const {
+    getUsersHandler,
+    postUsersHandler,
+  } = require("../handlers/usersHandlers");
 
-router.get('/', (req,res) => {
-    console.log('Get All Users')
-    res.send(`Users route`)
-});
+
+router.post("/create", postUsersHandler);
+//router.get("/", getUsersHandler);
 
 module.exports = router;
