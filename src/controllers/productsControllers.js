@@ -109,4 +109,13 @@ const getPropiertyValues = async (value) => {
   }
 };
 
-module.exports = { addProduct, desactivateProduct, activateProduct, getAllProducts, getPropiertyValues };
+const findAndUpdateProduct = async (_id, update) => {
+  try{
+    const updateProduct = await Products.findOneAndUpdate({_id}, {$set: update}, {upsert: false, returnDocument: 'after'});
+    return updateProduct;
+  }catch(err){
+    throw new Error(err)
+  }
+};
+
+module.exports = { addProduct, desactivateProduct, activateProduct, getAllProducts, getPropiertyValues, findAndUpdateProduct };

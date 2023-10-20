@@ -9,6 +9,7 @@ const {
   activateProductHandler,
   getProducts,
   getPropiertyValuesHandler,
+  updateProducts
 } = require('../handlers/productsHandlers');
 const {formatImage} = require('../middlewares/imageFormat');
 
@@ -19,6 +20,7 @@ router.post('/add', formatImage, addProductHandler);
 router.put('/desactivate/:id', desactivateProductHandler);
 router.put('/activate/:id', activateProductHandler);
 router.get('/props/:value', getPropiertyValuesHandler);
+router.post('/update/:id', updateProducts)
 router.get('/', getProducts);
 
 

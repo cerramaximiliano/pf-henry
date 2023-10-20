@@ -3,7 +3,8 @@ const {
   desactivateProduct,
   activateProduct,
   getAllProducts,
-  getPropiertyValues
+  getPropiertyValues,
+  findAndUpdateProduct
 } = require('../controllers/productsControllers');
 const imagesController = require('../controllers/uploadFirebaseController');
 
@@ -32,7 +33,7 @@ const addProductHandler = async (req, res) => {
       console.log('Image Upload')
       if( req.image ){
         const uploadImage = await imagesController.uploadImage(req);
-        const newProduct = await addProduct({...req.body, weigth: {type:type, value:value}, image: uploadImage})
+        const newProduct = await addProduct({...req.body, weight: {type:type, value:value}, image: uploadImage})
         if (newProduct) return res.status(201).json({ ok: true, newProduct });
         else return res.status(500).json({ ok: false, error: `Server error` });
       }else {
@@ -121,10 +122,31 @@ const getPropiertyValuesHandler = async (req, res) => {
   }
 };
 
+const updateProducts = async (req, res) => {
+  const {id} = req.params;
+  const update = req.body;
+  try {
+    if(!update.title && 
+      !update.price &&
+      !update.category &&
+      !update.stock &&
+      !update.diet &&
+      !update.flavor &&
+      !update.weight.value &&
+      !update.weight.type
+      ) return res.status(400).json({ok: false, message: `Missing request data`})
+    const updatedProduct = await findAndUpdateProduct(id, update);
+    res.status(200).json({ok: true, updatedProduct});
+  }catch(err){
+    res.status(500).json({ok: false, err: err.message})
+  }
+};
+
 module.exports = {
   addProductHandler,
   desactivateProductHandler,
   activateProductHandler,
   getProducts,
-  getPropiertyValuesHandler
+  getPropiertyValuesHandler,
+  updateProducts
 };
