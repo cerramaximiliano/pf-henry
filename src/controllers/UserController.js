@@ -14,11 +14,12 @@ const createUser = async (given_name, family_name, email, email_verified, sub, p
 
         const newUser = new Users(data)
         const createdUser = await newUser.save()
+        console.log('createdUser controller:');
+        console.log(createdUser);
         return createdUser
+    } else {
+        throw new Error('User already exist')
     }
-    // } else {
-    //     throw new Error('User already exist')
-    // }
 }
 
 module.exports = { createUser }

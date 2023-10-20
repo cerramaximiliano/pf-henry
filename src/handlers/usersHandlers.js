@@ -5,9 +5,9 @@ const {
 const postUsersHandler = async (req, res) => {
     try {
       const { given_name, family_name, email, email_verified, sub, picture} = req.body;
-      console.log(req.body);
-      await createUser(given_name, family_name, email, email_verified, sub, picture);
-      res.status(201).send("User creado exitosamente");
+      const createdUser = await createUser(given_name, family_name, email, email_verified, sub, picture);
+      console.log(createdUser);
+      res.status(201).json(createdUser);
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
