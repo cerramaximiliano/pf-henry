@@ -9,7 +9,6 @@ const stripeRoutes = require('./checkout');
 router.use('/users', usersRoutes);
 router.use('/products', productsRoutes);
 router.use('/upload', imagesRoutes);
-router.use('/checkout', stripeRoutes)
 
 module.exports = router;
 
