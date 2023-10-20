@@ -9,7 +9,6 @@ const createSession = async (req,res) => {
         price_data: {
             product_data: {
                 name: 'proteina',
-                description: 'meh'
             },
             currency: 'usd',
             unit_amount: 2000
