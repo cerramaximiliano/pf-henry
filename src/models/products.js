@@ -29,7 +29,7 @@ const productSchema = new mongoose.Schema({
   flavor: {
     type: String,
   },
-  weigth: {
+  weight: {
     value: {
       type: Number,
     },
