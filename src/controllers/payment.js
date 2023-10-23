@@ -1,26 +1,37 @@
-const Stripe = require('stripe')
+const Stripe = require('stripe');
+const STRIPE_KEY = process.env.STRIPE_KEY;
+const stripe = new Stripe(STRIPE_KEY);
 
-const STRIPE_KEY = process.env.STRIPE_KEY
-const stripe = new Stripe(STRIPE_KEY) 
+const createSession = async (req, res) => {
+    let { products, total_price } = req.body;
 
-const createSession = async (req,res) => {
-   const session = await stripe.checkout.sessions.create({
-    line_items: [{
-        price_data: {
-            product_data: {
-                name: 'proteina',
+    if (typeof total_price !== 'number' && Array.isArray(products)) {
+        total_price = products.reduce((acc, product) => acc + product.price, 0);
+    }
+
+    const lineItems = products.map(product => {
+        return {
+            price_data: {
+                product_data: {
+                    name: product.title,
+                    images: [product.image],
+                },
+                currency: 'usd',
+                unit_amount: product.price * 100, // Convert price to cents
             },
-            currency: 'usd',
-            unit_amount: 2000
-        },
-        quantity: 1
-    }],
-    mode: 'payment',
-    success_url:'http://localhost:3001/payment/success',
-    cancel_url:'http://localhost:3001/payment/cancel'
-   })
-   return res.json(session)
-}
+            quantity: 1
+        };
+    });
 
-module.exports = createSession
+    const session = await stripe.checkout.sessions.create({
+        line_items: lineItems,
+        mode: 'payment',
+        success_url: 'http://localhost:3001/payment/success',
+        cancel_url: 'http://localhost:3001/payment/cancel'
+    });
+    
+    res.json(session.url);
+};
+
+module.exports = createSession;
 
