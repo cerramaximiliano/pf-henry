@@ -7,7 +7,7 @@ const imagesRoutes = require('./images');
 const paymentRoutes = require('./payment.js');
 const cartRoutes = require('./cart.js');
 // const orderRoutes = require('./order.js');
-const reviewsRoutes = require('../controllers/ReviewsController.js');
+const reviewsRoutes = require('../controllers/reviewsController.js');
 
 
 router.use('/users', usersRoutes);
