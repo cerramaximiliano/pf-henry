@@ -7,7 +7,7 @@ router.post('/create-checkout-session', createSession);
 
 router.get('/success', (req,res) => {res.send(`success`)});
 
-router.post('/webhook', webHookHandler);
+// router.post('/webhook', webHookHandler);
 // router.get('/webhook', webHookHandler);
 
 router.get('/cancel', (req,res) => {res.send(`cancel`)});
