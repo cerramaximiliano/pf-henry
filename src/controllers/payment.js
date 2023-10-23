@@ -2,8 +2,6 @@ const Stripe = require("stripe");
 const STRIPE_KEY = process.env.STRIPE_KEY;
 const stripe = new Stripe(STRIPE_KEY);
 
-console.log(STRIPE_KEY);
-
 const createSession = async (req, res) => {
   let { products, totalPrice } = req.body;
 
