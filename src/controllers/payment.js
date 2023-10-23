@@ -2,6 +2,9 @@ const Stripe = require("stripe");
 const STRIPE_KEY = process.env.STRIPE_KEY;
 const stripe = new Stripe(STRIPE_KEY);
 
+const URL_BASE = 'http://localhost:5173/';
+
+
 const createSession = async (req, res) => {
   let { products, totalPrice } = req.body;
 
@@ -26,7 +29,7 @@ const createSession = async (req, res) => {
   const session = await stripe.checkout.sessions.create({
     line_items: lineItems,
     mode: "payment",
-    success_url: "http://localhost:3001/products",
+    success_url: "http://localhost:5173/myaccount/123456789",
     cancel_url: "http://localhost:3001/payment/cancel",
   });
   console.log(session.url);
