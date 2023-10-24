@@ -14,3 +14,5 @@ const createOrder = async (result) => {
       throw new Error(error);
     }
   };
+
+  module.exports = createOrder;
