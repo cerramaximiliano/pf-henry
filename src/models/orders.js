@@ -12,6 +12,7 @@ const orderSchema = new mongoose.Schema({
       status: String
     },
   ],
+  status: {type: String, default: 'pending'},
   total: { type: Number, default: 0 },
   createdAt: { type: Date, default: Date.now }
 });
