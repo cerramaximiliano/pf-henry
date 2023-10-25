@@ -13,6 +13,7 @@ const orderSchema = new mongoose.Schema({
     },
   ],
   status: {type: String, default: 'pending'},
+  userId: {type: String},
   total: { type: Number, default: 0 },
   createdAt: { type: Date, default: Date.now }
 });
