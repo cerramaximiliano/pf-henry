@@ -1,4 +1,10 @@
 const Order = require('../models/orders');
+const nodemailer = require('nodemailer')
+const config = require('../config/nodemailer');
+const User = require('../models/users')
+
+
+const {sendEmail} = require('./emailController')
 
 
 const getOrderById = async (req, res) => {
@@ -21,25 +27,22 @@ const updateOrderStatus = async (req, res) => {
         const order = await Order.findOneAndUpdate({_id: id}, {status: 'complete'}, {new: false});
         console.log(order)
         if( order ) {
-            // HACER UN CONDICIONAL SI LA ORDEN EFECTIVAMENTE SE ACTUALIZÓ DE PENDING A COMPLETE
-            // SI order.status = 'pending' => ENVIAR EMAIL
+            if(order.status === 'pending'){
+                const user = await User.findById(order.userId)
+                const subject = 'orden de compra exitosa'
+                const text = 'su orden se ralizo con exito'
+                const send = await sendEmail(user.email, subject ,text);
+                console.log(send)
+                return res.status(201).json({ok: true, order, message: `Order updated email:true`})
+            }else{
+                console.log(order)
+                return res.status(201).json({ok: true, order, message: `Order updated email:false`})
 
-                    // Envió de MAIL
-                    // BUSCARS EN order, el userId => order.userId
-                    // const email = await User.find({_id: userId});
-                    // 
-                    // EJECUTAR EL CONTROLADOR DE NODEMAILER
-                    // DEVOLVER LA ORDEN
-
-            // SI order.status !== 'pending' SOLO DEVUELVE SOLO LA ORDEN
-
-            return res.status(201).json({ok: true, order, message: `Order updated`})
-        
-        
+            };
         }
         res.status(401).json({ok: false, message: `Order couldn't update`})
     }catch(err){
-        res.status(500).json({ok: false, error: err})
+        res.status(500).json({ok: false, error: err.message})
     }
 };
 

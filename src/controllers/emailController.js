@@ -3,22 +3,20 @@ const config = require('../config/nodemailer');
 
 const transporter = nodemailer.createTransport(config);
 
-exports.sendEmail = async (req, res) => {
+const sendEmail = async (email, subject ,text) => {
   try {
-    const { to, subject, text } = req.body;
-
+    const sendEmail  =
     await transporter.sendMail({
       from: 'jenshygym@gmail.com',
-      to,
+      to:email,
       subject,
       text
     });
-
-    res.status(200).json({ message: 'Correo enviado exitosamente' });
+    return sendEmail;
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error al enviar el correo' });
+    throw new Error(error)
   }
 };
 
 
+module.exports = {sendEmail};

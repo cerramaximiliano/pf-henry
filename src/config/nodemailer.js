@@ -1,6 +1,6 @@
 module.exports = {
-  host: "localhost",
-  port: 3001,
+  host: "smtp.gmail.com",
+  port: 587,
   secure: false,
   auth: {
     user: "jenshygym@gmail.com", //crear variable de entorno
