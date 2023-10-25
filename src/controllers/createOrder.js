@@ -5,7 +5,7 @@ const createOrder = async (result) => {
         const newOrder = new Order({
           products:  result.products,
           total: result.totalPrice,
-          userId: 12345687,
+          userId: result.userId,
           status:"pending"
         });
         const orderSaved = await newOrder.save();
