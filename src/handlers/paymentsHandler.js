@@ -2,7 +2,7 @@ const Stripe = require("stripe");
 const STRIPE_KEY = process.env.STRIPE_KEY;
 const stripe = new Stripe(STRIPE_KEY);
 const Order = require('../models/orders');
-const createOrder = require('./controllers/createOrder');
+const createOrder = require('../controllers/createOrder');
 
 
 const createSession = async (req, res) => {

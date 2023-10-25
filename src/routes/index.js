@@ -6,7 +6,7 @@ const productsRoutes = require('./products');
 const imagesRoutes = require('./images');
 const paymentRoutes = require('./payment.js');
 const cartRoutes = require('./cart.js');
-const emailRoutes = require('./sendEmail.js');
+const orderRoutes = require('./orders.js');
 const reviewsRoutes = require('../controllers/reviewsController.js');
 
 
@@ -15,7 +15,7 @@ router.use('/products', productsRoutes);
 router.use('/upload', imagesRoutes);
 router.use('/payment', paymentRoutes);
 router.use('/cart', cartRoutes);
-router.use('/email', emailRoutes);
+router.use('/orders', orderRoutes);
 router.use('/reviews', reviewsRoutes);
 
 
