@@ -20,6 +20,21 @@ Tecnologies
 </div>
 
 
+# Enviroment variables
+MONGO_URI=mongodb+srv://guillevallejosr:gPwWuokN8zDOeuT6@cluster0.5nw8cx2.mongodb.net/henshi_fit?retryWrites=true&w=majority&appName=AtlasApp
+FIREBASE_API_KEY=AIzaSyCw95ndVqsU_PJ2dTSxGBh7-EGSdYEzAaU
+FIREBASE_AUTH_DOMAIN=jenshygym.firebaseapp.com
+FIREBASE_PROJECTID=jenshygym
+FIREBASE_STORAGE_BUCKET=jenshygym.appspot.com
+FIREBASE_MESSAGING_SENDER_ID=145185946899
+FIREBASE_APP_ID=1:145185946899:web:954a4188cf564aebbdaee6
+FIREBASE_MEASUREMENT_ID=G-S55QWWWC9Q
+STRIPE_KEY=sk_test_51O31sJFvEByJWgFkzT3SFSp0JQAgpTsJmPGlohm9USrsMyIDIr8aGWrOYvjL6MFkfL8o2XOWeF4uqCrPmOSw6u4v00RHT8gPHC
+# DEVELOP ENVIROMENT
+URL_FRONT=http://localhost:5173
+# PRODUCTION ENVIROMENT
+# URL_FRONT=https://pf-v1-front.vercel.app/
+
 
 Here you have a cheatsheat for the git commands fror anyone who needs it
 -------------------------------------------------------------------
