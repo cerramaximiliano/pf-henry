@@ -2,9 +2,7 @@ const Order = require('../models/orders');
 const nodemailer = require('nodemailer')
 const config = require('../config/nodemailer');
 const User = require('../models/users')
-
-
-const {sendEmail} = require('./emailController')
+const transport = require('../config/nodemailer')
 
 
 const getOrderById = async (req, res) => {
@@ -31,11 +29,15 @@ const updateOrderStatus = async (req, res) => {
                 const user = await User.findById(order.userId)
                 const subject = 'orden de compra exitosa'
                 const text = 'su orden se ralizo con exito'
-                const send = await sendEmail(user.email, subject ,text);
-                console.log(send)
+                const send = 
+                transport.sendMail({
+                    from: 'jenshygym@gmail.com',
+                    to: user.email,
+                    subject: 'hello world',
+                    html: '<h1>Hello world!</h1>'
+                 });
                 return res.status(201).json({ok: true, order, message: `Order updated email:true`})
             }else{
-                console.log(order)
                 return res.status(201).json({ok: true, order, message: `Order updated email:false`})
 
             };
