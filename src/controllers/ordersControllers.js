@@ -34,6 +34,20 @@ const getOrderById = async (req, res) => {
     }
 };
 
+const getOrdersByUserId = async (req, res) => {
+    const {id} = req.params;
+    try {
+        const orders = await Order.find({userId: id});
+        if (orders) {
+            res.status(200).json({ok: true, orders, total : orders.length})
+        }else {
+            res.status(401).json({ok: false, message: `Orders not found`, orders})
+        }
+    }catch(err){
+        res.status(500).json({ok: false, message: err.message})
+    }
+};
+
 const updateOrderStatus = async (req, res) => {
     const {id} = req.params;
     try {
@@ -70,4 +84,4 @@ const updateOrderStatus = async (req, res) => {
 };
 
 
-module.exports = {getOrderById, updateOrderStatus, createOrder};
+module.exports = {getOrderById, getOrdersByUserId, updateOrderStatus, createOrder};
