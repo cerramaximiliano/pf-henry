@@ -13,10 +13,15 @@ const orderSchema = new mongoose.Schema({
     },
   ],
   status: {type: String, default: 'pending'},
+  notification: {type: String, default: 'pending'},
   userId: {type: String},
   total: { type: Number, default: 0 },
   createdAt: { type: Date, default: Date.now }
 });
 
+orderSchema.pre('findOneAndUpdate', function (next) {
+  this._original = this.getQuery();
+  next();
+});
 
 module.exports = mongoose.model('Order', orderSchema);

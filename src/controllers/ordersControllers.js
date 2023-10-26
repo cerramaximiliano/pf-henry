@@ -5,8 +5,6 @@ const User = require('../models/users')
 const transport = require('../config/nodemailer')
 
 const createOrder = async (result) => {
-    console.log('Create Order')
-    console.log(result)
       try {
           const newOrder = new Order({
             products:  result.products,
@@ -39,30 +37,34 @@ const getOrderById = async (req, res) => {
 const updateOrderStatus = async (req, res) => {
     const {id} = req.params;
     try {
-        const order = await Order.findOneAndUpdate({_id: id}, {status: 'complete'}, {new: false});
-        console.log(26, order)
+        const order = await Order.findOneAndUpdate({_id: id}, {status: 'complete'}, {new: true});
         if( order ) {
-            if(order.status === 'pending'){
+            if(order.notification === 'pending'){
                 const user = await User.findById(order.userId)
-                console.log(user)
-                const subject = 'orden de compra exitosa'
-                const text = 'su orden se ralizo con exito'
-                const send = 
-                transport.sendMail({
+                let products = [];
+                order.products.forEach((ele) => {
+                  products.push(`<li><h4>${ele.title}</h4><p>Price: ${ele.price}</p></li>`)
+                });
+                
+                const sender = await transport.sendMail({
                     from: 'jenshygym@gmail.com',
                     to: user.email,
-                    subject: 'hello world',
-                    html: '<h1>Hello world!</h1>'
+                    subject: 'Order Complete',
+                    html: 
+                        `<html><head></head><body><h2>Order Details</h2><div><h3>Order Status: Complete</h3><h3>User: ${user.email}</h3><h3>Total: ${order.total.toFixed(2)}</h3><h3>Created At: ${order.createdAt}</h3><h3>Products:</h3>
+                          <ul>${products}</ul></div></body></html>`
                  });
-                return res.status(201).json({ok: true, order, message: `Order updated email:true`})
+                if(sender[0].complete) {
+                  const updateOrder = await Order.findOneAndUpdate({_id: id}, {notification: 'complete'});
+                  return res.status(201).json({ok: true, order, message: 'Order updated',  email: true })
+                } else return res.status(201).json({ok: true, order, message: 'Order updated',  email: false })
+                
             }else{
-                return res.status(201).json({ok: true, order, message: `Order updated email:false`})
-
+                return res.status(201).json({ok: true, order, message: 'Order updated', email: false })
             };
         }
         res.status(401).json({ok: false, message: `Order couldn't update`})
     }catch(err){
-        console.log(48, err)
         res.status(500).json({ok: false, error: err.message})
     }
 };

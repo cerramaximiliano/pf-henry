@@ -7,10 +7,7 @@ const {createOrder} = require('../controllers/ordersControllers');
 
 const createSession = async (req, res) => {
   let { products, totalPrice, userId } = req.body;
-  console.log(10,req.body)
-  console.log(11, userId)
   const newOrder = await createOrder({products, totalPrice, userId});
-  console.log(12, newOrder)
   if (typeof totalPrice !== "number" && Array.isArray(products)) {
     totalPrice = products.reduce((acc, product) => acc + product.price, 0);
   }
