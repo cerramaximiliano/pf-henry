@@ -7,12 +7,10 @@ const {createOrder} = require('../controllers/ordersControllers');
 
 const createSession = async (req, res) => {
   let { products, totalPrice, userId } = req.body;
-
   const newOrder = await createOrder({products, totalPrice, userId});
   if (typeof totalPrice !== "number" && Array.isArray(products)) {
     totalPrice = products.reduce((acc, product) => acc + product.price, 0);
   }
-
   const lineItems = products.map((product) => {
     return {
       price_data: {
@@ -21,7 +19,7 @@ const createSession = async (req, res) => {
           images: [product.image],
         },
         currency: "usd",
-        unit_amount: product.price * 100,
+        unit_amount: Math.round(product.price * 100 * 100)/100,
       },
       quantity: product.quantity,
     };
