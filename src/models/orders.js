@@ -10,7 +10,8 @@ const orderSchema = new mongoose.Schema({
       image: String,
       quantity: Number,
       status: String,
-      productId: String
+      productId: String,
+      review: {type: String, default: false}
     },
   ],
   status: {type: String, default: 'pending'},

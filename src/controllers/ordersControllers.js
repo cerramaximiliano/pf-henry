@@ -5,7 +5,6 @@ const User = require('../models/users')
 const transport = require('../config/nodemailer')
 
 const createOrder = async (result) => {
-    console.log(result);
       try {
           const newOrder = new Order({
             products:  result.products,
