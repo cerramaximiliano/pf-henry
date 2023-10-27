@@ -5,12 +5,14 @@ const User = require('../models/users')
 const transport = require('../config/nodemailer')
 
 const createOrder = async (result) => {
+    console.log(result);
       try {
           const newOrder = new Order({
             products:  result.products,
             total: result.totalPrice,
             userId: result.userId,
-            status:"pending"
+            status:"pending",
+            productId: result.id
           });
           const orderSaved = await newOrder.save();
           return orderSaved;
@@ -18,7 +20,6 @@ const createOrder = async (result) => {
         throw new Error(error);
       }
     };
-  
 
 const getOrderById = async (req, res) => {
     const {id} = req.params;

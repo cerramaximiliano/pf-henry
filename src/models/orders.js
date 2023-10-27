@@ -9,7 +9,8 @@ const orderSchema = new mongoose.Schema({
       price: Number,
       image: String,
       quantity: Number,
-      status: String
+      status: String,
+      productId: String
     },
   ],
   status: {type: String, default: 'pending'},
