@@ -4,7 +4,7 @@ const idHandler = async (req, res) => {
     let id = req.params.id; 
     try {
         const result = await getById(id);
-        res.status(200).json(result);
+        res.status(200).send(result);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

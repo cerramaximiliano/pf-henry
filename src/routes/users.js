@@ -12,7 +12,7 @@ const {
 } = require('../controllers/UserController');
 
 router.post('/create', postUsersHandler);
-//router.get("/", getUsersHandler);
+router.get("/", getUsersHandler);
 router.put('/desactivate/:userId', desactivateUser);
 router.put('/activate/:userId', activateUser);
 

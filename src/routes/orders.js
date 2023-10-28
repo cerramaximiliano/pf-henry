@@ -4,7 +4,7 @@ const {getOrderById, getOrdersByUserId, updateOrderStatus} = require('../control
 
 router.get('/userid/:id', getOrdersByUserId)
 router.get('/update/:id', updateOrderStatus);
-router.get('/:id', getOrderById);
+router.get('/', getOrderById);
 
 
 
