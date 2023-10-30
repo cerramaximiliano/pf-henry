@@ -64,12 +64,6 @@ const getAllProducts = async (
 
 
   let filter = {}
-  // if (name) {
-  //   const words = name.split(' ');
-  //   const regex = words.map(word => `(?=.*${word})`).join('');
-  //   const regexPattern = new RegExp(regex, 'i');
-  //   filter.title = { $regex: new RegExp(regex, 'i') }
-  // }
   if (name) filter.title = { $regex: new RegExp(name, 'i') }
   if (category) filter.category = { $regex: new RegExp(category, 'i') }
   if (diet) filter.diet = { $regex: new RegExp(diet, 'i') }
