@@ -11,7 +11,7 @@ const orderSchema = new mongoose.Schema({
       quantity: Number,
       status: String,
       productId: String,
-      review: {type: String, default: false}
+      review: {type: Boolean, default: false}
     },
   ],
   status: {type: String, default: 'pending'},
