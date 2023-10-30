@@ -9,6 +9,9 @@ const reviewsSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, // Referencia al producto
     ref: 'Product', // Referencia al modelo de productos
   },
+  orderId :{
+    type: String,
+  },
   rating: {
     type: Number,
     required: true,

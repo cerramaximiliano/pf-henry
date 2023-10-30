@@ -7,6 +7,7 @@ const {createOrder} = require('../controllers/ordersControllers');
 
 const createSession = async (req, res) => {
   let { products, totalPrice, userId } = req.body;
+  console.log('Products', products)
   const newOrder = await createOrder({products, totalPrice, userId});
   if (typeof totalPrice !== "number" && Array.isArray(products)) {
     totalPrice = products.reduce((acc, product) => acc + product.price, 0);
@@ -28,7 +29,7 @@ const createSession = async (req, res) => {
   const session = await stripe.checkout.sessions.create({
     line_items: lineItems,
     mode: "payment",
-    success_url: `${process.env.URL_FRONT}/myaccount/${newOrder._id}`,
+    success_url: `${process.env.URL_FRONT}/myaccount/orders/${newOrder._id}`,
     cancel_url: `${process.env.URL_FRONT}/myaccount/error`,
   });
   res.json(session.url);

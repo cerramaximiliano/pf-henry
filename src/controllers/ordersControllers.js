@@ -10,15 +10,15 @@ const createOrder = async (result) => {
             products: result.products,
             total: result.totalPrice,
             userId: result.userId,
-            status: "pending"
-        });
-        const orderSaved = await newOrder.save();
-        return orderSaved;
-    } catch (error) {
+            status:"pending",
+            productId: result.id
+          });
+          const orderSaved = await newOrder.save();
+          return orderSaved;
+      } catch (error) {
         throw new Error(error);
-    }
-};
-
+      }
+    };
 
 const getOrderById = async (req, res) => {
     const { id, page = 1, limit = 10, orderBy = '_id' } = req.query;
