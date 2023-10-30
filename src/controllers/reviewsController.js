@@ -2,10 +2,23 @@ const express = require('express');
 const router = express.Router();
 const Reviews = require('../models/reviews'); // Asegúrate de que la importación sea correcta
 const Product = require('../models/products');
+const Order = require('../models/orders');
 
 router.post('/create', async (req, res) => {
   try {
-    const { userId, productId, rating, comments } = req.body;
+    const { userId, productId, rating, comments, orderId } = req.body;
+    console.log(orderId);
+
+    
+    const updatedOrder = await Order.findOneAndUpdate(
+      {
+        _id: orderId,
+        'products.productId': productId
+      },
+      { $set: { 'products.$.review': true } },
+      { new: true }
+    );
+
 
     // Crear una nueva revisión sin el campo "__v"
     const newReview = new Reviews({ userId, productId, rating, comments });
