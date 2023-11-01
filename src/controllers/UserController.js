@@ -26,7 +26,7 @@ function blockUserAuth(user_id, active) {
     const config = {
       method: 'patch',
       maxBodyLength: Infinity,
-      url: `https://dev-sb20ytwkh45csc6m.us.auth0.com/api/v2/users/${user_id}`,
+      url: `${process.env.AUTH_AUDIENCE}/users/${user_id}`,
       headers: { 
         'Content-Type': 'application/json', 
         'Accept': 'application/json', 
