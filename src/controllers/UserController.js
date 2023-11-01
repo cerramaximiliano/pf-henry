@@ -8,12 +8,12 @@ function blockUserAuth(user_id, active) {
   });
   const options = {
     method: 'post',
-    url: 'https://dev-sb20ytwkh45csc6m.us.auth0.com/oauth/token',
+    url: process.env.AUTH_TOKEN_URL,
     headers: { 'content-type': 'application/json' },
     data: {
       client_id: process.env.AUTH_CLIENT_ID,
       client_secret: process.env.AUTH_CLIENT_SECRET,
-      audience: 'https://dev-sb20ytwkh45csc6m.us.auth0.com/api/v2/',
+      audience: process.env.AUTH_AUDIENCE,
       grant_type: 'client_credentials',
     },
   };
@@ -26,7 +26,7 @@ function blockUserAuth(user_id, active) {
     const config = {
       method: 'patch',
       maxBodyLength: Infinity,
-      url: `https://dev-sb20ytwkh45csc6m.us.auth0.com/api/v2/users/${user_id}`,
+      url: `${process.env.AUTH_AUDIENCE}users/${user_id}`,
       headers: { 
         'Content-Type': 'application/json', 
         'Accept': 'application/json', 
@@ -110,6 +110,7 @@ async function activateUser(req, res) {
     if (!user) {
       return res.status(404).json({ error: 'Usuario no encontrado' });
     }
+    console.log(user.sub);
     blockUserAuth(user.sub, false)
     res.status(200).json({ message: 'Usuario activado con éxito' });
   } catch (error) {
