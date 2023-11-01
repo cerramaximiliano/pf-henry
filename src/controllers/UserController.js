@@ -8,12 +8,12 @@ function blockUserAuth(user_id, active) {
   });
   const options = {
     method: 'post',
-    url: 'https://dev-sb20ytwkh45csc6m.us.auth0.com/oauth/token',
+    url: process.env.AUTH_TOKEN_URL,
     headers: { 'content-type': 'application/json' },
     data: {
       client_id: process.env.AUTH_CLIENT_ID,
       client_secret: process.env.AUTH_CLIENT_SECRET,
-      audience: 'https://dev-sb20ytwkh45csc6m.us.auth0.com/api/v2/',
+      audience: process.env.AUTH_AUDIENCE,
       grant_type: 'client_credentials',
     },
   };

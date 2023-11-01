@@ -58,7 +58,8 @@ const getAllProducts = async (
   weightType,
   page,
   limit,
-  orderBy) => {
+  orderBy,
+  active) => {
 
   // filtering & pagination
 
@@ -73,7 +74,7 @@ const getAllProducts = async (
   if (weightMin && !isNaN(weightMin)) filter = { ...filter, 'weight.value': { ...filter['weight.value'], $gte: parseFloat(weightMin) } };
   if (weightMax && !isNaN(weightMax)) filter = { ...filter, 'weight.value': { ...filter['weight.value'], $lte: parseFloat(weightMax) } };
   if (weightType) filter = { ...filter, 'weight.type': weightType }
-  filter.isActive = true
+  if(active) filter.isActive = active
   console.log(filter);
   console.log(typeof orderBy);
   const totalCount = await Products.countDocuments(filter);
