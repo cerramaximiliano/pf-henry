@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const createSession = require('../controllers/payment')
+const createSession = require('../handlers/paymentsHandler')
 // const webHookHandler = require('../handlers/webHookHandler')
 
 router.post('/create-checkout-session', createSession);
