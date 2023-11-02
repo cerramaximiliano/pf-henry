@@ -99,4 +99,20 @@ const updateOrderStatus = async (req, res) => {
 };
 
 
-module.exports = { getOrderById, getOrdersByUserId, updateOrderStatus, createOrder };
+const getOrder = async (req, res) => {
+    const {id} = req.query;
+    console.log(id)
+    try {
+        const order = await Order.find({_id: id});
+        console.log(order)
+        if(order){
+            res.status(200).json({ok: true, order})
+        }else{
+            res.status(401).json({ok: false, order})
+        }
+    }catch (err) {
+        res.status()
+    }
+};
+
+module.exports = { getOrderById, getOrdersByUserId, updateOrderStatus, createOrder, getOrder };
